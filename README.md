@@ -116,7 +116,7 @@ mkdir results
 - [SimpleSSD‑Standalone(시뮬레이터)](https://docs.simplessd.org/en/v2.0.12/)
 - [YCSB 트레이스](https://iotta.snia.org)
 - [PyTorch](https://pytorch.org)
-- [LSTM](https://developer.ibm.com/learningpaths/iot-anomaly-detection-deep-learning/intro-deep-learning-lstm-networks/)
+- [deep learning with LSTM networks](https://developer.ibm.com/learningpaths/iot-anomaly-detection-deep-learning/intro-deep-learning-lstm-networks/)
 - AGRAWAL, N., et al. "Design Tradeoffs for SSD Performance," Proc. of the 2008 USENIX Annual Technical Conference, pp. 1-14, Jun. 2008.
 - YUNE, S. J.,"A Study on Improving SSD Write Amplification through Machine Learning-based Hot/Cold Page Classification," Master's Thesis, Pusan National University, Busan, 2024.
 ---
