@@ -21,6 +21,7 @@ FTL에서 블록을 첫 쓰기 시점에 온도로 태깅하고 가득 찰 때�
 
 ### 3. 시스템 설계
 #### 3.1. 시스템 구성도
+<img width="5880" height="6307" alt="KakaoTalk_Photo_2025-09-23-20-29-50" src="https://github.com/user-attachments/assets/46baa3a5-b17f-4cfa-888a-281a57d26cc0" />
 
 
 #### 3.2. 사용 기술
