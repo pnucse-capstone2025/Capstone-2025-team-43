@@ -1,237 +1,122 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/nRcUn8vA)
-# Template for Capstone
-이 레파지토리는 학생들이 캡스톤 프로젝트 결과물을 위한 레파지토리 생성시에 참고할 내용들을 담고 있습니다.
-1. 레파지토리 생성
-2. 레파지토리 구성
-3. 레파지토리 제출 
-4. README.md 가이드라인
-5. README.md 작성팁
+## 프로젝트 소개
 
----
-
-## 1. 레파지토리 생성
-- [https://classroom.github.com/a/nRcUn8vA](https://classroom.github.com/a/nRcUn8vA)
-- 위 Github Classroom 링크에 접속해 본인 조의 github 레파지토리를 생성하세요.
-
-<img width="700" alt="깃헙 클래스룸 레포 생성" src="https://github.com/user-attachments/assets/34ca1f43-c2cd-4880-a39e-0dafd889c35f" />
-
-- 레포지토리 생성 시 팀명은 `TEAM-{조 번호}` 형식으로 생성하세요.
-- 예를 들어, 2025년도 3조의 팀명은 `TEAM-03` 입니다.
-- 이 경우 `Capstone2025-team-03`이란 이름으로 레파지토리가 생성됩니다.
-
----
-
-## 2. 레파지토리 구성
-- 레파지토리 내에 README.md 파일 생성하고 아래의 가이드라인과 작성팁을 참고하여 README.md 파일을 작성하세요. (이 레파지토리의 SAMPLE_README.md 참조)
-- 레파지토리 내에 docs 디렉토리를 생성하고 docs 디렉토리 내에는 과제 수행 하면서 작성한 각종 보고서, 발표자료를 올려둡니다. (이 레파지토리의 docs 디렉토리 참조)
-- 그 밖에 레파지토리의 폴더 구성은 과제 결과물에 따라 자유롭게 구성하되 가급적 코드의 목적이나 기능에 따라 디렉토리를 나누어 구성하세요.
-
----
-
-## 3. 레파지토리 제출 
-
-- **`[주의]` 레파지토리 제출**은 해당 레파지토리의 ownership을 **학과 계정**으로 넘기는 것이므로 되돌릴 수 없습니다.
-- **레파지토리 제출** 전, 더 이상 수정 사항이 없는지 다시 한번 확인하세요.
-- github 레파지토리에서 Settings > General > Danger zone > Transfer 클릭
-  <img src="https://github.com/user-attachments/assets/cb2361d4-e07e-4b5d-9116-aa80dddd8a8b" alt="소유주 변경 경로" width="500" />
-  
-- [ Specify an organization or username ]에 'PNUCSE'를 입력하고 확인 메세지를 입력하세요.
-  <img src="https://github.com/user-attachments/assets/7c63955d-dcfe-4ac3-bdb6-7d2620575f3a" alt="소유주 변경" width="400" />
-
----
-
-## 4. README.md 가이드 라인
-- README 파일 작성시에 아래의 5가지 항목의 내용은 필수적으로 포함해야 합니다.
-- 아래의 항목이외에 프로젝트의 이해를 돕기 위한 내용을 추가해도 됩니다.
-- SAMPLE_README.md 이 단순한 형태의 예제이니 참고하세요.
-
-```markdown
 ### 1. 프로젝트 배경
 #### 1.1. 국내외 시장 현황 및 문제점
-> 시장 조사 및 기존 문제점 서술
+SSD(Solid-State Drive)는 빠른 입출력 속도와 낮은 지연 시간 덕분에 주요 저장 장치로 자리 잡았다. 그러나 데이터를 덮어쓸 수 없으며, 읽기와 쓰기는 페이지(page) 단위로 이루어지지만, 삭제는 이보다 훨씬 큰 블록(block) 단위로만 가능하다는 점이 문제점이다. 이로 인해 SSD는 기존의 데이터를 무효화하고 새로운 데이터를 다른 공간에 쓰는 방식으로 쓰기 작업을 수행하는데 이 과정이 반복되면 유효하지 않은 데이터가 누적되고, 결국 가비지 컬렉션(Garbage Collection, GC)이라는 정리 작업을 통해 유효한 데이터를 다른 블록으로 옮기는 추가적인 쓰기가 발생한다.
+이러한 가비지 컬렉션 과정에서 발생하는 추가적인 쓰기 작업은 **쓰기 증폭** 현상을 유발하며 이로 인해 SSD의 수명을 단축시키게 되는 문제점을 발생시키는데, 기존의 FTL은 사전에 정의된 정적인 정책을 따르기 때문에 이러한 문제를 해결하기 어렵다.
 
 #### 1.2. 필요성과 기대효과
-> 왜 이 프로젝트가 필요한지, 기대되는 효과 등
+딥러닝 기술을 도입하여 입출력 워크로드의 패턴을 분석하고, 딥러닝 모델을 활용해 데이터의 Hotness(갱신 빈도)를 예측한다. 이렇게 예측된 Hotness 레이블을 temperature로 정의해 first-touch 태깅과 온도 풀 분리, 동일 풀 우선 GC 복사를 적용하면 Hot/Cold 혼입이 줄어들고, FTL이 데이터를 블록별로 분리 저장하는 동적 정책을 구현함으로써, 가비지 컬렉션 시 유효 페이지를 옮기는 횟수를 최소화하여 **쓰기 증폭** 문제를 완화시킬 수 있다.
+
+---
 
 ### 2. 개발 목표
 #### 2.1. 목표 및 세부 내용
-> 전체적인 개발 목표, 주요 기능 및 기획 내용
+딥러닝을 활용하여 SSD의 Hotness 기반 FTL 정책을 제안하고 검증하는 것이 목표다. 페이지별 입출력 트레이스를 생성하는 데이터 전처리 과정을 거친 뒤, 이 정보를 통해 페이지 정보 해시 테이블을 구축하여 각 페이지의 접근 패턴에 대한 통계 정보를 누적한다. 통계 정보는 K-means 클러스터링을 통해 Hotness 레이블을 생성하는 데 사용되며, 동시에 Stacked-LSTM 모델의 입력 데이터가 되어 페이지 접근 패턴의 시계열적 특성을 학습한다. 학습이 완료된 모델은 오프라인 레이블링을 통해 전체 트레이스에 Hotness 예측 레이블을 추가하여 시뮬레이션에 사용될 Hotness 이 추가된 트레이스를 생성한다. 최종적으로, SimpleSSD-SA 시뮬레이터를 사용하여 Hotness를 고려하지 않는 기존 FTL 정책과 제안된 Hotness 기반 FTL 정책의 성능을 비교 분석한다.
+#### 2.2. 기존 서비스 대비 차별성
+FTL에서 블록을 첫 쓰기 시점에 온도로 태깅하고 가득 찰 때까지 동일 온도만 수용하며, GC 시에도 같은 온도 풀의 오픈 블록으로 우선 복사하여 혼입을 구조적으로 최소화한다. 이는 단순 페이지 매핑 대비 불필요한 유효 페이지 복사를 줄여 내부 WAF·지연을 낮추는 점에서 차별화된다.
+#### 2.3. 사회적 가치 도입 계획
+정책의 핵심 목표가 WAF와 지연의 감소이므로, 동일 자원에서의 효율 향상과 수명 연장을 기대할 수 있다.
 
-#### 2.2. 기존 서비스 대비 차별성 
-> 유사 서비스 비교 및 차별점 부각
 
-#### 2.3. 사회적 가치 도입 계획 
-> 프로젝트의 공공성, 지속 가능성, 환경 보호 등
 ### 3. 시스템 설계
 #### 3.1. 시스템 구성도
-> 이미지 혹은 텍스트로 시스템 아키텍쳐 작성
->
+
+
 #### 3.2. 사용 기술
-> 프론트엔드, 백엔드, API 등 구체 기술 스택
+- **시뮬레이션**: C++17, CMake, SimpleSSD‑Standalone v2.0
+- **ML**: Python, PyTorch 
+- **데이터**: SNIA IOTTA YCSB 블록 트레이스
+
+---
 
 ### 4. 개발 결과
 #### 4.1. 전체 시스템 흐름도
-> 기능 흐름 설명 및 도식화 가능
->
+전처리·페이지화 → 학습 데이터 생성 → 모델 학습·검증 → 오프라인 레이블링 → 시뮬레이션 환경 구성 → 결과 분석
+
 #### 4.2. 기능 설명 및 주요 기능 명세서
-> 주요 기능에 대한 상세 설명, 각 기능의 입력/출력 및 설명
->
+- 레이블 정규화·풀 선택: 요청 temperature를 정규화해(0~3) 해당 풀에서 블록을 선택하고 태깅한다.
+- FTL 배치: 첫 쓰기 순간 블록 태깅, 같은 온도만 채움
+- 일관 GC: 유효 서브페이지는 같은 온도 풀의 오픈 블록으로 우선 복사하여 혼입을 억제한다.
+- 메트릭: Internal WAF = `device_write_bytes / host_write_bytes_at_FTL`, GC 복사 서브페이지, 지연, IOPS 등
+
 #### 4.3. 디렉토리 구조
->
+```
+.
+├─ docs/                # 보고서/포스터/발표자료
+├─ scripts/             # 전처리·학습·레이블·재현 스크립트
+├─ src/                 # ICL/FTL 수정 코드
+├─ models/              # 학습 모델(.pt) 및 스케일러(.pkl)
+├─ traces/              # raw/processed/labeled 트레이스
+├─ configs/             # 시뮬 설정 JSON
+└─ results/             # 로그/표/그래프
+```
+
 #### 4.4. 산업체 멘토링 의견 및 반영 사항
-> 멘토 피드백과 적용한 사례 정리
+- **WAF 외 성능 지표 제시**:평균 응답 시간(Latency)이 98.2% 단축되었음을 확인함으로써 쓰기 지연 시간 개선또한 명확히 입증했다.
+- **GC Victim 블록 선택 방식의 차별성**:GC 횟수의 비교로 Victim 블록 선택 전략이 근본적으로 다르게 동작했음을 증명했다.
+- **Wear-Leveling**:본 연구에서는 별도의 동적 Wear-Leveling 알고리즘의 구현을 포함하지 않기 때문에 장기적인 관점에서는 마모 불균형이 심화될 수 있는 한계가 있기에 향후 연구 과제로 현재의 Hot/Cold 분리 정책을 기반으로 블록 간 마모도 편차도 고려하는 알고리즘에 대한 연구가 가능할 것이다.
+
+---
 
 ### 5. 설치 및 실행 방법
->
 #### 5.1. 설치절차 및 실행 방법
-> 설치 명령어 및 준비 사항, 실행 명령어, 포트 정보 등
-#### 5.2. 오류 발생 시 해결 방법
-> 선택 사항, 자주 발생하는 오류 및 해결책 등
+
+설치
+```bash
+git clone git@github.com:simplessd/simplessd-standalone
+cd simplessd-standalone
+git submodule update --init --recursive
+```
+
+시뮬레이터 빌드 (mac 사용)
+```bash
+mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+make -j"$(sysctl -n hw.ncpu)"
+```
+
+실험 파라미터 설정<br>
+시뮬레이션의 config 파일과 simple-ssd의 config 파라미터를 설정해 실험할 수 있다.
+
+실행 (mac 사용)
+```bash
+mkdir results
+./simplessd-standalone \
+  ../config/sample.cfg \
+  ../simplessd/config/sample.cfg \
+  results
+```
+
+---
 
 ### 6. 소개 자료 및 시연 영상
 #### 6.1. 프로젝트 소개 자료
-> PPT 등
+
 #### 6.2. 시연 영상
-> 영상 링크 또는 주요 장면 설명
+
+
+---
 
 ### 7. 팀 구성
 #### 7.1. 팀원별 소개 및 역할 분담
->
+- 201924544 **이준형** — 데이터 전처리, 입출력 패턴 코드 분석, 모델 개발
+- 201914502 **강인석** — 시뮬레이션 환경 구축 및 설정, 성능 측정(WAF), Hotness 레벨 트레이스용 FTL 정책 개선, 성능 비교
+- 202155537 **김지수** — 시뮬레이션 환경 구축 및 설정, FTL 개선 정책 구현, 성능 측정, 기존 FTL VS 딥러닝 기반 FTL 비교
+- 지도교수 **안성용** — 전체 연구 지도
+
 #### 7.2. 팀원 별 참여 후기
-> 개별적으로 느낀 점, 협업, 기술적 어려움 극복 사례 등
+
+
+---
+
 
 ### 8. 참고 문헌 및 출처
-
-```
-
-## 5. README.md 작성팁 
-* 마크다운 언어를 이용해 README.md 파일을 작성할 때 참고할 수 있는 마크다운 언어 문법을 공유합니다.  
-* 다양한 예제와 보다 자세한 문법은 [이 문서](https://www.markdownguide.org/basic-syntax/)를 참고하세요.
-
-### 5.1. 헤더 Header
-```
-# This is a Header 1
-## This is a Header 2
-### This is a Header 3
-#### This is a Header 4
-##### This is a Header 5
-###### This is a Header 6
-####### This is a Header 7 은 지원되지 않습니다.
-```
-<br />
-
-### 5.2. 인용문 BlockQuote
-```
-> This is a first blockqute.
->	> This is a second blockqute.
->	>	> This is a third blockqute.
-```
-> This is a first blockqute.
->	> This is a second blockqute.
->	>	> This is a third blockqute.
-<br />
-
-### 5.3. 목록 List
-* **Ordered List**
-```
-1. first
-2. second
-3. third  
-```
-1. first
-2. second
-3. third
-<br />
-
-* **Unordered List**
-```
-* 하나
-  * 둘
-
-+ 하나
-  + 둘
-
-- 하나
-  - 둘
-```
-* 하나
-  * 둘
-
-+ 하나
-  + 둘
-
-- 하나
-  - 둘
-<br />
-
-### 5.4. 코드 CodeBlock
-* 코드 블럭 이용 '``'
-```
-여러줄 주석 "```" 이용
-"```
-#include <stdio.h>
-int main(void){
-  printf("Hello world!");
-  return 0;
-}
-```"
-
-단어 주석 "`" 이용
-"`Hello world`"
-
-* 큰 따움표(") 없이 사용하세요.
-``` 
-<br />
-
-### 5.5. 링크 Link
-```
-[Title](link)
-[부산대학교 정보컴퓨터공학부](https://cse.pusan.ac.kr/cse/index..do)
-
-<link>
-<https://cse.pusan.ac.kr/cse/index..do>
-``` 
-[부산대학교 정보컴퓨터공학부](https://cse.pusan.ac.kr/cse/index..do)
-
-<https://cse.pusan.ac.kr/cse/index..do>
-<br />
-
-### 5.6. 강조 Highlighting
-```
-*single asterisks*
-_single underscores_
-**double asterisks**
-__double underscores__
-~~cancelline~~
-```
-*single asterisks* <br />
-_single underscores_ <br />
-**double asterisks** <br />
-__double underscores__ <br />
-~~cancelline~~  <br />
-<br />
-
-### 5.7. 이미지 Image
-```
-<img src="image URL" width="600px" title="Title" alt="Alt text"></img>
-![Alt text](image URL "Optional title")
-```
-- 웹에서 작성한다면 README.md 내용 안으로 이미지를 드래그 앤 드롭하면 이미지가 생성됩니다.
-- 웹이 아닌 로컬에서 작성한다면, github issue에 이미지를 드래그 앤 드롭하여 image url 을 얻을 수 있습니다. (URL만 복사하고 issue는 제출 안 함.)
-  <img src="https://github.com/user-attachments/assets/0fe3bff1-7a2b-4df3-b230-cac4ef5f6d0b" alt="이슈에 image 올림" width="600" />
-  <img src="https://github.com/user-attachments/assets/251c6d42-b36b-4ad4-9cfa-fa2cc67a9a50" alt="image url 복사" width="600" />
-
-
-### 5.8. 유튜브 영상 추가
-```markdown
-[![영상 이름](유튜브 영상 썸네일 URL)](유튜브 영상 URL)
-[![부산대학교 정보컴퓨터공학부 소개](http://img.youtube.com/vi/zh_gQ_lmLqE/0.jpg)](https://www.youtube.com/watch?v=zh_gQ_lmLqE)    
-```
-[![부산대학교 정보컴퓨터공학부 소개](http://img.youtube.com/vi/zh_gQ_lmLqE/0.jpg)](https://www.youtube.com/watch?v=zh_gQ_lmLqE)    
-
-- 이때 유튜브 영상 썸네일 URL은 유투브 영상 URL로부터 다음과 같이 얻을 수 있습니다.
-
-- `Youtube URL`: https://www.youtube.com/watch?v={동영상 ID}
-- `Youtube Thumbnail URL`: http://img.youtube.com/vi/{동영상 ID}/0.jpg 
-- 예를 들어, https://www.youtube.com/watch?v=zh_gQ_lmLqE 라고 하면 썸네일의 주소는 http://img.youtube.com/vi/zh_gQ_lmLqE/0.jpg 이다.
+- [SimpleSSD‑Standalone(시뮬레이터)](https://docs.simplessd.org/en/v2.0.12/)
+- [YCSB 트레이스](https://iotta.snia.org)
+- [PyTorch](https://pytorch.org)
+- [LSTM](https://developer.ibm.com/learningpaths/iot-anomaly-detection-deep-learning/intro-deep-learning-lstm-networks/)
+- AGRAWAL, N., et al. "Design Tradeoffs for SSD Performance," Proc. of the 2008 USENIX Annual Technical Conference, pp. 1-14, Jun. 2008.
+- YUNE, S. J.,"A Study on Improving SSD Write Amplification through Machine Learning-based Hot/Cold Page Classification," Master's Thesis, Pusan National University, Busan, 2024.
+---
 
