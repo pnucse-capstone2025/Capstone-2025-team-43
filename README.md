@@ -44,11 +44,6 @@ FTL에서 블록을 첫 쓰기 시점에 온도로 태깅하고 가득 찰 때�
 .
 ├─ docs/                # 보고서/포스터/발표자료
 ├─ scripts/             # 전처리·학습·레이블·재현 스크립트
-├─ src/                 # ICL/FTL 수정 코드
-├─ models/              # 학습 모델(.pt) 및 스케일러(.pkl)
-├─ traces/              # raw/processed/labeled 트레이스
-├─ configs/             # 시뮬 설정 JSON
-└─ results/             # 로그/표/그래프
 ```
 
 #### 4.4. 산업체 멘토링 의견 및 반영 사항
