@@ -87,7 +87,7 @@ mkdir results
 ---
 
 ### 6. 소개 및 시연 영상
-
+[![시연 영상](http://img.youtube.com/vi/uA37RvXBMUM/0.jpg]([link](https://www.youtube.com/watch?v=uA37RvXBMUM))
 
 ---
 
