@@ -25,7 +25,7 @@ FTL에서 블록을 첫 쓰기 시점에 온도로 태깅하고 가득 찰 때�
 
 #### 3.2. 사용 기술
 - **시뮬레이션**: C++17, CMake, SimpleSSD‑Standalone v2.0
-- **ML**: Python, PyTorch 
+- **ML**: Python, PyTorch, Scikit-learn, NumPy, Pandas
 - **데이터**: SNIA IOTTA YCSB 블록 트레이스
 
 ---
@@ -58,6 +58,38 @@ FTL에서 블록을 첫 쓰기 시점에 온도로 태깅하고 가득 찰 때�
 
 ### 5. 설치 및 실행 방법
 #### 5.1. 설치절차 및 실행 방법
+
+이 프로젝트는 SimpleSSD-SA 시뮬레이터와 딥러닝 모델을 활용한 복합 시스템이므로, 시뮬레이터와 Python/ML 환경을 모두 설정해야 한다. 다음은 전체 워크플로우를 단계별로 안내한다.
+
+1.  **Python 환경 설정**
+    * Python 3.x가 설치되어 있는지 확인한다.
+    * `scripts/` 디렉터리에 있는 Python 스크립트 실행에 필요한 라이브러리를 설치한다.
+    ```bash
+    pip install torch numpy scikit-learn pandas matplotlib seaborn tqdm
+    ```
+
+2.  **데이터 전처리 및 모델 학습**
+    * `scripts/` 디렉터리의 파이썬 스크립트를 순서대로 실행하여 데이터를 전처리하고 모델을 학습한다.
+    * 원본 트레이스(`ycsb_to_simplessd.py`)를 SimpleSSD-SA 형식으로 변환하고, 페이지 단위로 분할(`simplessd_page_split.py`)한다.
+    * 분할된 트레이스로 LSTM 모델 학습 데이터셋(`lstm_data_gen.py`)을 생성한다.
+    ```bash
+    # 예시: ycsb_trace.txt를 입력으로 사용
+    python scripts/ycsb_to_simplessd.py ycsb_trace.txt data/simplessd_trace.csv
+    python scripts/simplessd_page_split.py data/simplessd_trace.csv data/simplessd_page_split.csv
+    python scripts/lstm_data_gen.py --input_file data/simplessd_page_split.csv --output_dir data/npy --log_name lstm_data_gen.log
+    ```
+
+3.  **모델 학습 및 오프라인 레이블링**
+    * `ML_model.py` 스크립트를 실행하여 LSTM 모델을 학습한다. 학습이 완료되면 모델 파일(`.pth`)이 `models/` 디렉터리에 저장된다.
+    * `offline_labeling.py` 스크립트를 실행하여 학습된 모델과 스케일러를 이용, 최종 시뮬레이션에 사용될 Hotness 레이블이 추가된 트레이스 파일을 생성한다.
+    ```bash
+    # lstm_data_gen.py로 생성된 파일 경로를 인자로 사용
+    python scripts/ML_model.py --x_path data/npy/X_simplessd_page_split.npy --y_path data/npy/y_simplessd_page_split.npy --model_name hotness_model --log_name hotness_model.log
+
+    # 학습된 모델과 스케일러 파일을 사용
+    python scripts/offline_labeling.py data/simplessd_page_split.csv models/hotness_model.pth --scaler_file data/npy/scaler_simplessd_page_split.pkl results/labeled_trace.csv
+    ```
+---
 
 설치
 ```bash
@@ -101,7 +133,11 @@ mkdir results
 
 #### 7.2. 팀원 별 참여 후기
 
-- **201924544 이준형** - 프로젝트에서 데이터 전처리, 입출력 패턴 분석, 그리고 모델 개발을 담당했습니다. YCSB 블록 트레이스를 SimpleSSD-SA 시뮬레이터에 맞게 변환하고 페이지 단위로 데이터를 분할하는 작업부터 시작했습니다. 페이지별 접근 패턴을 기반으로 통계적 특성을 추출하고, 이를 활용해 Stacked-LSTM 모델을 설계하는 과정은 기억에 남는 경험이었습니다. 이 기술이 SSD의 쓰기 증폭 문제를 해결하는 데 기여할 수 있다는 것을 확인했을 때 큰 보람을 느꼈습니다.
+- **201924544 이준형** - 프로젝트에서 데이터 전처리, 입출력 패턴 분석, 그리고 모델 개발을 담당했습니다. YCSB 블록 트레이스를 SimpleSSD-SA 시뮬레이터에 맞게 변환하고 페이지 단위로 데이터를 분할하는 작업부터 시작했습니다. 페이지별 접근 패턴을 기반으로 통계적 특성을 추출하고, 이를 활용해 Stacked-LSTM 모델을 설계하는 과정은 기억에 남는 경험입니다.
+
+  특히 시뮬레이션 환경 구축을 담당한 팀원들과 긴밀히 소통하며, 모델의 예측 결과가 FTL 정책에 어떻게 적용될지 논의했던 것이 큰 도움이 되었습니다. 단순히 모델의 정확도를 높이는 것을 넘어, 실제 시스템에 적용했을 때의 효과를 고려하는 시각을 가질 수 있었기 때문입니다. 이 기술이 SSD의 쓰기 증폭 문제를 해결하는 데 기여할 수 있다는 것을 확인했을 때 큰 보람을 느꼈습니다.
+
+  이번 프로젝트는 저에게 기술적인 지식뿐만 아니라, 팀원들과의 유기적인 협업을 통해 시너지를 창출하는 소중한 경험을 안겨주었습니다.
 
 - **201914502 강인석** - 이번 캡스톤 프로젝트를 통해 단순히 코드를 구현하는 수준을 넘어, 저장장치 아키텍처의 근본적인 문제를 실험적으로 분석하고 해결책을 모색하는 과정을 직접 경험할 수 있었습니다. 특히 FTL 정책 개선과 시뮬레이션 환경 구축을 담당하면서, 논문으로만 접하던 쓰기 증폭(Write Amplification) 문제가 실제 실험 환경에서 어떤 수치와 현상으로 나타나는지 확인할 수 있었던 것이 가장 인상 깊었습니다. 단순히 WAF 지표 하나에 머무르지 않고 지연(Latency), IOPS 등 다양한 메트릭을 종합적으로 살펴보며, 제안한 Hotness 기반 정책이 구조적으로 어떤 차이를 만들어내는지 검증한 과정은 큰 배움이 되었습니다.
 
