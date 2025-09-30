@@ -43,9 +43,10 @@ FTL에서 블록을 첫 쓰기 시점에 온도로 태깅하고 가득 찰 때�
 #### 4.3. 디렉토리 구조
 ```
 .
-├─ docs/                # 보고서/포스터/발표자료
-├─ scripts/             # 전처리·학습·레이블·재현 스크립트
-└─ hotness/SimpleSSD-Standalone             #hotness 라벨이 붙은 trace로 시뮬레이션 하기 위해 수정된 SimpleSSD-Standalone
+├─ docs/      # 보고서/포스터/발표자료
+├─ scripts/      # 전처리·학습·레이블·재현 스크립트
+├─ SSD-WAF-Analysis-Capstone-2025-main/      #WAF 산출 코드를 추가한 기존 SimpleSSD-Standalone
+└─ hotness/SimpleSSD-Standalone/      #hotness 라벨이 붙은 trace로 시뮬레이션 하기 위해 수정된 SimpleSSD-Standalone
 ```
 
 #### 4.4. 산업체 멘토링 의견 및 반영 사항
